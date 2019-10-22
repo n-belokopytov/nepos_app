@@ -8,6 +8,14 @@ import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import kotlinx.android.synthetic.main.activity_web_app.*
+import android.webkit.WebViewClient
+import android.webkit.WebChromeClient
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -58,14 +66,17 @@ class WebAppActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true)
+            content_web_view.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         }
 
+        content_web_view.webChromeClient = WebChromeClient()
+        content_web_view.webViewClient = WebViewClient()
 
-        // Set up the user interaction to manually show or hide the system UI.
         content_web_view.settings.javaScriptEnabled = true
         content_web_view.settings.domStorageEnabled = true
+        content_web_view.settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
         content_web_view.setOnClickListener { toggle() }
-        content_web_view.loadUrl("https://www.nepos.app")
+        content_web_view.loadUrl("https://ayala.nepos.app")
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
