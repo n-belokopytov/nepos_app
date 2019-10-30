@@ -5,51 +5,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher_nepos"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:roundIcon="@drawable/ic_launcher_nepos"
         android:fullBackupContent="@xml/backup_descriptor">
 
         <activity
-            android:name="com.nepos.webapp.WebAppActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_web_app"
-            android:hardwareAccelerated="true"
-            android:theme="@style/FullscreenTheme">
-            <!--            <intent-filter>-->
-            <!--                    <action android:name="android.intent.action.MAIN" />-->
-            <!--                    <action android:name="android.intent.action.VIEW" />-->
-            <!--                    <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
-
-        <activity
-            android:name="com.google.androidbrowserhelper.trusted.LauncherActivity"
+            android:name=".WebAppActivity"
             android:theme="@style/Theme.LauncherActivity">
-            <meta-data
-                android:name="android.support.customtabs.trusted.DEFAULT_URL"
-                android:value="https://dev.nepos.tech" />
-
-            <meta-data
-                android:name="asset_statements"
-                android:resource="@string/asset_statements" />
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="https"
-                    android:host="dev.nepos.tech" />
             </intent-filter>
         </activity>
     </application>

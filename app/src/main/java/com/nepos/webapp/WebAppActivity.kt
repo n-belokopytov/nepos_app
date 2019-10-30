@@ -1,11 +1,10 @@
 package com.nepos.webapp
 
-import android.os.Build
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.webkit.WebChromeClient
-import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_web_app.*
@@ -18,11 +17,6 @@ import kotlinx.android.synthetic.main.activity_web_app.*
 class WebAppActivity : AppCompatActivity() {
     private val mHideHandler = Handler()
     private val mHidePart2Runnable = Runnable {
-        // Delayed removal of status and navigation bar
-
-        // Note that some of these constants are new as of API 16 (Jelly Bean)
-        // and API 19 (KitKat). It is safe to use them, as they are inlined
-        // at compile-time and do nothing on earlier devices.
         content_web_view.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LOW_PROFILE or
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
@@ -32,23 +26,10 @@ class WebAppActivity : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
     }
     private val mShowPart2Runnable = Runnable {
-        // Delayed display of UI elements
         supportActionBar?.show()
-        fullscreen_content_controls.visibility = View.VISIBLE
     }
     private var mVisible: Boolean = false
     private val mHideRunnable = Runnable { hide() }
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private val mDelayHideTouchListener = View.OnTouchListener { _, _ ->
-        if (AUTO_HIDE) {
-            delayedHide(AUTO_HIDE_DELAY_MILLIS)
-        }
-        false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,12 +44,11 @@ class WebAppActivity : AppCompatActivity() {
         content_web_view.settings.javaScriptEnabled = true
         content_web_view.settings.domStorageEnabled = true
         content_web_view.setOnClickListener { toggle() }
-        content_web_view.loadUrl("https://dev.nepos.tech")
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        dummy_button.setOnTouchListener(mDelayHideTouchListener)
+        content_web_view.loadUrl(generateInitialUrl(this))
     }
+
+    private fun generateInitialUrl(context: Context) =
+        "https://${context.getString(R.string.api_url)}/enter-usergroup/${context.getString(R.string.usergroup)}"
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -95,7 +75,6 @@ class WebAppActivity : AppCompatActivity() {
     private fun hide() {
         // Hide UI first
         supportActionBar?.hide()
-        fullscreen_content_controls.visibility = View.GONE
         mVisible = false
 
         // Schedule a runnable to remove the status and navigation bar after a delay

@@ -37,25 +37,41 @@ android {
         }
     }
 
-    flavorDimensions "api"
+    flavorDimensions "api", "usergroup"
 
     productFlavors {
         prod {
             dimension "api"
+            resValue "string", "app_name", "Nepos"
+            resValue "string", "api_url", "nepos.app"
         }
 
         stage {
             dimension "api"
             applicationIdSuffix ".stage"
+            resValue "string", "app_name", "Nepos-Stage"
+            resValue "string", "api_url", "stage.nepos.tech"
             versionNameSuffix "-stage"
             versionCode 1000000 + android.defaultConfig.versionCode
         }
 
         dev {
             dimension "api"
+            resValue "string", "app_name", "Nepos-Dev"
+            resValue "string", "api_url", "dev.nepos.tech"
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
             versionCode 2000000 + android.defaultConfig.versionCode
+        }
+
+        generic {
+            dimension "usergroup"
+            resValue "string", "usergroup", ""
+        }
+
+        blz {
+            dimension "usergroup"
+            resValue "string", "usergroup", "berliner-zeitung"
         }
     }
 
@@ -70,10 +86,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.browser:browser:1.0.0'
-    implementation 'com.github.GoogleChrome:android-browser-helper:+'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
