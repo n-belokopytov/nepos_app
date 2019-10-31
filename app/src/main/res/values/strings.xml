@@ -10,4 +10,8 @@
                 \"site\": \"https://dev.nepos.tech"}
         }]
     </string>
+    <string name="offline_splash_wifi_settings_label">Open Internet Settings</string>
+    <string name="offline_splash_message">It seems we lost connection to Nepos service. Could you check your internet is working?\n\nYou can click the button below to open your Internet settings to see if your device is connected.</string>
+
+    <string name="title_activity_fullscreen_nepos">FullscreenNeposActivity</string>
 </resources>
