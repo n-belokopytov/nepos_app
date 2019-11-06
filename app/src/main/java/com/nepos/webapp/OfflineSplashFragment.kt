@@ -14,4 +14,9 @@ class OfflineSplashFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.offline_splash_fragment, container, false)
     }
+
+    override fun onStart() {
+        super.onStart()
+
+    }
 }
