@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.nepos.webapp.analytics.EventTracker
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -18,6 +19,7 @@ class FullscreenNeposActivity : AppCompatActivity() {
 
     private val webAppFragment = WebAppFragment()
     private val offlineSplashFragment = OfflineSplashFragment()
+    lateinit var eventTracker: EventTracker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -14,6 +14,8 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import com.nepos.webapp.analytics.Event
+import com.nepos.webapp.analytics.EventTracker
 import kotlinx.android.synthetic.main.activity_web_app.*
 
 
@@ -49,6 +51,8 @@ class WebAppFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        EventTracker(requireContext()).trackEvent(WebAppFragmentViewEvent())
+
         if (content_web_view.url == null) {
             content_web_view.loadUrl(
                 generateInitialUrl(
@@ -82,3 +86,5 @@ class WebAppFragment : Fragment() {
     private fun generateInitialUrl(apiString: String, userGroupString: String) =
         "https://$apiString/enter-usergroup/$userGroupString"
 }
+
+class WebAppFragmentViewEvent : Event("WebAppFragmentViewEvent", mapOf())
